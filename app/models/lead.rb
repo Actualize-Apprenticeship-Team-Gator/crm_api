@@ -26,12 +26,6 @@ class Lead < ApplicationRecord
     "#{self.first_name} #{self.last_name}"
   end
 
-  def processed_within_minutes
-    return 'not called' unless self.process_time
-    number_of_seconds = self.process_time - self.created_at
-    return "#{(number_of_seconds / 60).to_i} minutes"
-  end
-
   # Reset a lead as if it's brand new. This is useful for manual testing.
   def reset
     self.update(hot: true, contacted: false, connected: false, exclude_from_calling: false, appointment_date: nil, advisor: nil, number_of_dials: 0)
