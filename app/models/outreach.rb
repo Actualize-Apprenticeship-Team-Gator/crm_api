@@ -1,0 +1,3 @@
+class Outreach < ApplicationRecord
+
+end
