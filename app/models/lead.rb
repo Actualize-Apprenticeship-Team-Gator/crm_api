@@ -46,4 +46,6 @@ class Lead < ApplicationRecord
     # We tried dialing a valid number but the lead didn't answer their phone:
     self.contacted && !self.bad_number && !self.connected
   end
+
+
 end
