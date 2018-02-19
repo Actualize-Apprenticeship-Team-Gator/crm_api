@@ -1,9 +1,10 @@
 class Lead < ApplicationRecord
   has_many :events
+  has_many :outreaches
 
   before_save :standardize_phone
 
-  attr_accessor :call_mode
+  attr_accessor :call_mode, :outreach_comment
 
   # The algorithm that decides which lead the call converter should call next
   # based on which lead is most likely to lead to a successful call. This algorithm
