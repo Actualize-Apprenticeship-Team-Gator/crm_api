@@ -42,6 +42,12 @@
               <button type="button" class="btn btn-auto-text">Send Auto-Text</button>
             </div>
 
+            <%= form_tag("/text", method: "post") do %>
+              <%= hidden_field_tag(:auto_text, true ) %>
+              <%= hidden_field_tag(:lead_id, @lead.id) %>
+              <%= submit_tag("Send Auto-Text") %>
+            <% end %>
+
             <div class="card-header d-flex align-items-center">
               <h2 class="h5 display">Send Custom Text Message</h2>
             </div>
