@@ -102,20 +102,28 @@ class LeadsController < ApplicationController
 
   # Text from the browser:
   def text
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
+    lead = Lead.find(params[:lead_id])
+    client = Twilio::REST::Client.new
+    client.messages.create(
       from: ENV['TWILIO_PHONE_NUMBER'],
-      to: params[:phone],
-      body: params[:body]
+      to: lead.phone,
+      body: params[:auto_text] ? custom_message(lead.first_name) : params[:body]
     )
 
-    render nothing: true
+    if params[:auto_text] 
+      flash[:success] = "Auto Text Sent!"
+    end
+    redirect_to "/leads/#{lead.id}/edit"
   end
 
   def no_leads
   end
 
   private
+
+  def custom_message(lead_name) 
+     "Hi #{lead_name}! This is Rena from the Actualize coding bootcamp. Do you have a minute to talk?"   
+  end
 
   def lead_params
     params.require(:lead).permit(:first_name, :last_name, :email, :phone, :city, :state, :zip, :contacted, :appointment_date, :notes, :connected, :bad_number, :advisor, :location, :first_appointment_set, :first_appointment_actual, :first_appointment_format, :second_appointment_set, :second_appointment_actual, :second_appointment_format, :enrolled_date, :deposit_date, :sales, :collected, :status, :next_step, :rep_notes, :exclude_from_calling, :meeting_type, :meeting_format, :outreach_comment)
