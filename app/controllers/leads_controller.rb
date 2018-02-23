@@ -110,7 +110,10 @@ class LeadsController < ApplicationController
       body: params[:auto_text] ? custom_message(lead.first_name) : params[:body]
     )
 
-    render nothing: true
+    if params[:auto_text] 
+      flash[:success] = "Auto Text Sent!"
+    end
+    redirect_to "/leads/#{lead.id}/edit"
   end
 
   def no_leads
