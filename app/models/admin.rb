@@ -6,6 +6,8 @@ class Admin < ApplicationRecord
 
   has_many :daily_progress_logs
 
+  has_one :setting
+
   def record_progress(lead)
     log = DailyProgressLog.find_or_create_by(admin_id: self.id, date: Date.today)
     log.increment(:processed)
