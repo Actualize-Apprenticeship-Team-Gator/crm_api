@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     el: "#app",
     data: {
       leads: [],
+      searchString: "",
+      searchResults: [],
       // leadEvents: [],
       time_format: "12/25/17",
       url: "https://www.google.com/"
@@ -17,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           });
         }.bind(this)
       );
+      this.searchResults = this.leads;
       console.log(this.leads);
     },
     methods: {
@@ -32,6 +35,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
         lead.showEvents = !lead.showEvents;
       }
     },
-    computed: {}
+    computed: {
+      searchFilter: function() {
+        console.log(this.searchString);
+        console.log(this.searchResults);
+        this.searchString.toLowerCase();
+        this.searchResults.filter(function(lead) {
+          if (lead.first_name.toLowerCase() === this.searchString) {
+            return lead;
+          }
+        });
+        return this.searchResults;
+      }.bind(this)
+    }
   });
 });

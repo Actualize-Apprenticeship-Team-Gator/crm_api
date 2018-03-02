@@ -22,7 +22,7 @@
                 <th>Converter Notes</th>
               </tr>
             </thead>
-            <tbody v-for="lead in leads" v-on:click="expand(lead)">
+            <tbody v-for="lead in searchFilter" v-on:click="expand(lead)">
                 <tr>
                   <td>{{ moment(lead.created_at).format('dddd MMM Do YYYY, h:mm a') }}</td>
                   <td>{{ lead.first_name }}</td>
