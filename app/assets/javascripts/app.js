@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       leads: [],
       // leadEvents: [],
       time_format: "12/25/17",
-      url: "https://www.google.com/"
+      url: "https://www.google.com/",
+      sortAttribute: "created_at"
     },
     mounted: function() {
       $.get("/api/v1/leads.json").success(
@@ -20,6 +21,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log(this.leads);
     },
     methods: {
+      updateSortAttribute: function(sortAttribute) {
+        console.log(sortAttribute)
+        this.sortAttribute = sortAttribute
+      },
       moment: function(date) {
         return moment(date);
       },
@@ -32,6 +37,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         lead.showEvents = !lead.showEvents;
       }
     },
-    computed: {}
+    computed: {
+      sortedLeads: function() {
+        return this.leads.sort((a, b) => {
+          console.log(a, b)
+          return a[this.sortAttribute].localeCompare(b[this.sortAttribute])
+        });
+      }
+    }
   });
 });

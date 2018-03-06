@@ -17,16 +17,16 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Created</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Appointment Date</th>
+                <th v-on:click="updateSortAttribute('created_at')">Created</th>
+                <th v-on:click="updateSortAttribute('first_name')">First Name</th>
+                <th v-on:click="updateSortAttribute('last_name')">Last Name</th>
+                <th v-on:click="updateSortAttribute('email')">Email</th>
+                <th v-on:click="updateSortAttribute('phone')">Phone</th>
+                <th v-on:click="updateSortAttribute('appointment_date')">Appointment Date</th>
                 <th>Converter Notes</th>
               </tr>
             </thead>
-            <tbody v-for="lead in leads" v-on:click="expand(lead)">
+            <tbody v-for="lead in sortedLeads" v-on:click="expand(lead)">
                 <tr>
                   <td>{{ moment(lead.created_at).format('dddd MMM Do YYYY, h:mm a') }}</td>
                   <td>{{ lead.first_name }}</td>
