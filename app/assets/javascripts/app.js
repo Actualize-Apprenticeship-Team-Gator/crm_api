@@ -33,20 +33,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }.bind(this)
         );
         lead.showEvents = !lead.showEvents;
+      },
+      searchFilter: function(inputLead) {
+        return inputLead.first_name
+          .toLowerCase()
+          .includes(this.searchString.toLowerCase());
       }
     },
-    computed: {
-      searchFilter: function() {
-        console.log(this.searchString);
-        console.log(this.searchResults);
-        this.searchString.toLowerCase();
-        this.searchResults.filter(function(lead) {
-          if (lead.first_name.toLowerCase() === this.searchString) {
-            return lead;
-          }
-        });
-        return this.searchResults;
-      }.bind(this)
-    }
+    computed: {}
   });
 });
