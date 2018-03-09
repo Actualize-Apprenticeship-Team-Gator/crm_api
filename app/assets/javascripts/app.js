@@ -34,10 +34,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         );
         lead.showEvents = !lead.showEvents;
       },
-      searchFilter: function(inputLead) {
-        return inputLead.first_name
-          .toLowerCase()
-          .includes(this.searchString.toLowerCase());
+      searchFilter: function(lead) {
+        let matchables = ["abc", "def"];
+        if (matchables.includes(this.searchString.toLowerCase())) {
+          return lead;
+        }
       }
     },
     computed: {}
