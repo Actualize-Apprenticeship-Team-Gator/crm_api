@@ -35,10 +35,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         lead.showEvents = !lead.showEvents;
       },
       searchFilter: function(lead) {
-        let matchables = ["abc", "def"];
-        if (matchables.includes(this.searchString.toLowerCase())) {
-          return lead;
-        }
+        return (
+          lead.first_name
+            .toLowerCase()
+            .includes(this.searchString.toLowerCase()) ||
+          lead.last_name
+            .toLowerCase()
+            .includes(this.searchString.toLowerCase()) ||
+          lead.email.toLowerCase().includes(this.searchString.toLowerCase())
+        );
       }
     },
     computed: {}
