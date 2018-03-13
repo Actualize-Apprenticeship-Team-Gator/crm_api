@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       searchResults: [],
       time_format: "12/25/17",
       url: "https://www.google.com/",
-      sortAttribute: "created_at",
-      sortAscending: true
+      sortAttribute: "updated_at",
+      sortAscending: false
     },
     mounted: function() {
       $.get("/api/v1/leads.json").success(
