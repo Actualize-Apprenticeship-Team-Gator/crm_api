@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     el: "#app",
     data: {
       leads: [],
-      // leadEvents: [],
+      searchString: "",
+      searchResults: [],
       time_format: "12/25/17",
       url: "https://www.google.com/",
       sortAttribute: "created_at",
@@ -23,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     methods: {
       updateSortAttribute: function(sortAttribute) {
         if (this.sortAttribute == sortAttribute) {
-          this.sortAscending = !this.sortAscending
+          this.sortAscending = !this.sortAscending;
         } else {
-          this.sortAscending = true
-          this.sortAttribute = sortAttribute
+          this.sortAscending = true;
+          this.sortAttribute = sortAttribute;
         }
       },
       moment: function(date) {
@@ -39,15 +40,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
           }.bind(this)
         );
         lead.showEvents = !lead.showEvents;
+      },
+      searchFilter: function(lead) {
+        return (
+          lead.first_name
+            .toLowerCase()
+            .includes(this.searchString.toLowerCase()) ||
+          lead.last_name
+            .toLowerCase()
+            .includes(this.searchString.toLowerCase()) ||
+          lead.email.toLowerCase().includes(this.searchString.toLowerCase())
+        );
       }
     },
     computed: {
       sortedLeads: function() {
         return this.leads.sort((a, b) => {
           if (this.sortAscending) {
-            return a[this.sortAttribute].localeCompare(b[this.sortAttribute])
+            return a[this.sortAttribute].localeCompare(b[this.sortAttribute]);
           } else {
-            return b[this.sortAttribute].localeCompare(a[this.sortAttribute])
+            return b[this.sortAttribute].localeCompare(a[this.sortAttribute]);
           }
         });
       }
