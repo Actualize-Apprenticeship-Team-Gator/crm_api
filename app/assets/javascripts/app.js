@@ -34,11 +34,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         return moment(date);
       },
       expand: function(lead) {
-        $.get("/api/v1/leads/" + lead.id + ".json").success(
-          function(response) {
-            this.leadEvents = response.events;
-          }.bind(this)
-        );
+        $.get("/api/v1/leads/" + lead.id + ".json").success(function(response) {
+          app.$set(lead, "events", []);
+          lead["events"] = response.events;
+          console.log(lead);
+        });
         lead.showEvents = !lead.showEvents;
       },
       searchFilter: function(lead) {

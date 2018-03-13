@@ -34,7 +34,7 @@
                 </tr>
                 <tr v-if="lead.showEvents">
                   <td colspan="100%">
-                    <p v-if="lead.events.length === 0">No Events</p>
+                    <p v-if="lead.events && lead.events.length === 0">No Events</p>
                     <p v-for="event in lead.events">
                       {{ event.name.toUpperCase() }} - {{ moment(event.updated_at).format('dddd MMM Do YYYY, h:mm a') }}
                     </p>
