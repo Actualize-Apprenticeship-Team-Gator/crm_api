@@ -104,16 +104,20 @@ class LeadsController < ApplicationController
   def text
     lead = Lead.find(params[:lead_id])
     client = Twilio::REST::Client.new
-    client.messages.create(
-      from: ENV['TWILIO_PHONE_NUMBER'],
-      to: lead.phone,
-      body: params[:auto_text] ? custom_message(lead.first_name) : params[:body]
-    )
-
-    if params[:auto_text] 
-      flash[:success] = "Auto Text Sent!"
+    if params[:auto_text] || !params[:body].blank?
+      client.messages.create(
+        from: ENV['TWILIO_PHONE_NUMBER'],
+        to: lead.phone,
+        body: params[:auto_text] ? custom_message(lead.first_name) : params[:body]
+      )
+      flash[:success] = "Text Sent!"
+    else
+      flash[:alert] = "NO TEXT SENT"
     end
     redirect_to "/leads/#{lead.id}/edit"
+  rescue Twilio::REST::RequestError => error
+    redirect_to "/leads/#{lead.id}/edit"
+    flash[:alert] = "NO TEXT SENT - #{error}"
   end
 
   def no_leads
