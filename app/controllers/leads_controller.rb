@@ -125,8 +125,12 @@ class LeadsController < ApplicationController
 
   private
 
-  def custom_message(lead_name) 
-     "Hi #{lead_name}! This is Rena from the Actualize coding bootcamp. Do you have a minute to talk?"   
+  def custom_message(lead_name)
+    if current_admin.setting
+      current_admin.setting.auto_text
+    else
+      "Hi #{lead_name}! This is Rena from the Actualize coding bootcamp. Do you have a minute to talk?"   
+    end
   end
 
   def lead_params
